@@ -1,12 +1,13 @@
 import './config/env.js';
+import corsMiddleware from './middlewares/cors.middleware.js';
 import express from 'express';
 
 import ChatRoutes from './routes/chatRoute.js';
 
-import { configDotenv } from 'dotenv';
-configDotenv();
-
 const app = express();
+
+// apply cors policy middleware
+app.use(corsMiddleware);
 
 // parse json body
 app.use(express.json());
