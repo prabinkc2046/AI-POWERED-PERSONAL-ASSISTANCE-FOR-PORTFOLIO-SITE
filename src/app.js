@@ -9,8 +9,16 @@ const app = express();
 
 // apply cors policy middleware
 // app.use(corsMiddleware);
-app.use(cors());
 
+// remove this in production
+// Apply CORS middleware to allow all origins
+app.use(
+  cors({
+    origin: '*', // Allow requests from any origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+  })
+);
 // parse json body
 app.use(express.json());
 

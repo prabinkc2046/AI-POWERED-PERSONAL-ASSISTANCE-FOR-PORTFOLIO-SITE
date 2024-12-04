@@ -103,7 +103,7 @@ Response Requirements:
 - Keep answer concise, with a maximum of two sentences.  
 - Avoid unnecessary formatting like lists, numbers, or asterisks.  
 - Respond in plain text formatted for chat. 
-- If the message is unclear, unrelated, or incomplete, politely ask for clarification   
+- If the message is unclear, unrelated, or incomplete or system user does not have the information for the user's message, politely request for paraphrase 
 - Focus on the most relevant details of the project without excessive elaboration.  
 `;
 
