@@ -4,7 +4,9 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/app.js"
+    "dev": "nodemon src/app.js",
+    "start": "NODE_ENV=production node src/app.js",
+    "build": "echo 'No build step required for this application'"
   },
   "keywords": [],
   "author": "",
