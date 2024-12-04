@@ -5,6 +5,9 @@ const keywordsForGeneralIntention = [
   'general question',
   'need assistance',
   'can you help me',
+  'hi',
+  'hi how are you',
+  'hello',
 ];
 
 export default keywordsForGeneralIntention;
