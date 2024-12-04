@@ -1,24 +1,14 @@
 import './config/env.js';
 import corsMiddleware from './middlewares/cors.middleware.js';
 import express from 'express';
-import cors from 'cors';
 
 import ChatRoutes from './routes/chatRoute.js';
 
 const app = express();
 
 // apply cors policy middleware
-// app.use(corsMiddleware);
+app.use(corsMiddleware);
 
-// remove this in production
-// Apply CORS middleware to allow all origins
-app.use(
-  cors({
-    origin: '*', // Allow requests from any origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
-  })
-);
 // parse json body
 app.use(express.json());
 
@@ -26,9 +16,9 @@ app.use(express.json());
 app.use('/', ChatRoutes);
 
 const PORT = process.env.PORT || 3000;
-const HOST = process.env.NODE_ENV === 'development' ? '0.0.0.0' : 'localhost';
+const HOST = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
 app.listen(PORT, HOST, () => {
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'production') {
     console.log(`Server running on port: ${PORT}`);
   } else {
     console.log(`Server running on http://localhost:${PORT}`);
