@@ -13,11 +13,13 @@ const generateToken = (
   conversations,
   userMessageCount = 0,
   cooledDown = false,
-  expiresIn = TOKEN_EXPIRES_TIME
+  tokenExpiryTime = TOKEN_EXPIRES_TIME
 ) => {
   const payload = { conversations, userMessageCount, cooledDown };
+  // if tokenexpirty time has s or mins attached remove that
 
-  const token = jwt.sign(payload, secret, { expiresIn });
+  const tokenExpiryInSeconds = tokenExpiryTime + 's';
+  const token = jwt.sign(payload, secret, { expiresIn: tokenExpiryInSeconds });
 
   return token;
 };

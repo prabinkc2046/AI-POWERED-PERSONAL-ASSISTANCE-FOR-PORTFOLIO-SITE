@@ -42,10 +42,7 @@ const checkValidToken = (req, res, next) => {
     return next();
   } catch (error) {
     // Handle token verification errors (e.g., expired or invalid token)
-    console.log(
-      'Token verification failed. Treating as a new session:',
-      error.message
-    );
+    // console.log('Token verification failed. Treating as a new session:');
 
     req.isNewSession = true;
     req.conversations = [];

@@ -83,7 +83,6 @@ class CacheManager {
     const currentTimeStamp = this.#getCurrentTimeStamp();
 
     // I will visit each entry and give them good cleaning
-    console.log('Started cleaning expired key-value pair');
     for (const [key, expireTimeStamp] of this.#expirations) {
       // has expired
       if (currentTimeStamp > expireTimeStamp) {
@@ -91,7 +90,6 @@ class CacheManager {
         this.#cache.delete(key);
       }
     }
-    console.log('Finished cleaning expired keys');
   }
 
   //   I will run this after clean up
@@ -108,7 +106,6 @@ class CacheManager {
     } else {
       this.#cleanUpInterval = CLEANUP_INTERVALS.SHORT_DELAY;
     }
-    console.log('Clean up interval changed:', this.#cleanUpInterval);
   }
 
   //   public method
@@ -128,7 +125,6 @@ class CacheManager {
     const cleanUp = async () => {
       if (this.#cleanerWorking) return;
       this.#cleanerWorking = true;
-      console.log('Background cleaning task started');
       await this.#queueManager.enqueue(() => this.#removeExpiredEntry());
       this.#evaluateNextInterval();
       this.#cleanerWorking = false;

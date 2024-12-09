@@ -3,6 +3,7 @@ import {
   COOLED_DOWN_PERIOD,
 } from '../config/constants.js';
 import generateToken from '../utility/generateToken.js';
+import formatTime from '../utility/formateTime.js';
 
 const checkUserMessageCount = (req, res, next) => {
   // The upstream middleware ensures the token validity, so no need to re-check here.
@@ -26,9 +27,11 @@ const checkUserMessageCount = (req, res, next) => {
       // Generate a new token with a cooled-down state for the configured period
       const cooledDownToken = generateToken([], 0, true, COOLED_DOWN_PERIOD);
 
-      return res.status(429).json({
+      // user cooled down period in minutes to format future time in 12:01PM format
+      const tryAfter = formatTime(COOLED_DOWN_PERIOD);
+      return res.json({
         token: cooledDownToken,
-        message: `Hi, you have reached the maximum number of allowed messages. Please try again after ${COOLED_DOWN_PERIOD} minutes.`,
+        message: `Hi, you have reached the maximum number of allowed messages. Please try again after ${tryAfter}`,
       });
     }
   }

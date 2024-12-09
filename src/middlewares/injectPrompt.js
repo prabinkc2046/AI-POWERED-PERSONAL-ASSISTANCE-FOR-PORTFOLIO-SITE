@@ -15,9 +15,7 @@ const injectPrompt = (req, res, next) => {
     const systemPrompt = getPromptForIntent(userIntent);
 
     req.systemPrompt = systemPrompt;
-    console.log(
-      `system prompt for user intent ${userIntent} is ${systemPrompt}`
-    );
+
     return next();
   } catch (error) {
     console.error('Error in injecting system prompt:', error.message);

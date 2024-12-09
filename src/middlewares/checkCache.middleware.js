@@ -13,7 +13,6 @@ export const checkCache = async (req, res, next) => {
     messageKey
   );
   if (cachedResponse) {
-    console.log('Serving from cache');
     const updatedToken = generateUpdatedToken(cachedResponse, messageCount);
     return res.json({
       message: cachedResponse,

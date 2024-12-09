@@ -32,8 +32,8 @@ const handleCooledDownToken = (req, res, next) => {
     } else {
       // if cooled down period has not ended
       const waitingTime = Math.ceil((expire - nowTime) / (60 * 1000));
-      return res.status(429).json({
-        message: `Please try again after ${waitingTime} minutes. We will issue a new token`,
+      return res.json({
+        message: `Please wait for ${waitingTime} minutes to chat again`,
       });
     }
   } else {

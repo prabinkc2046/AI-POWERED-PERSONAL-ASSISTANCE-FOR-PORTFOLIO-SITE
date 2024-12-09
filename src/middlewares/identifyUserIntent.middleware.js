@@ -14,9 +14,6 @@ const identifyUserIntent = async (req, res, next) => {
 
     // Log the time taken
     const elapsedTime = Date.now() - startTime;
-    console.log(
-      `Intent identification completed in ${elapsedTime}ms. User intent: ${userIntent}`
-    );
 
     if (!userIntent) {
       console.warn('user intent match is not found');

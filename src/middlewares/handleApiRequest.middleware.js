@@ -24,7 +24,6 @@ export const handleApiRequest = async (req, res, next) => {
       );
 
       const assistanceContent = response.data.choices[0].message;
-      console.log(assistanceContent);
       if (!assistanceContent) {
         console.error('Invalid llm response');
         return res.json({ message: 'Invalid llm response' });
