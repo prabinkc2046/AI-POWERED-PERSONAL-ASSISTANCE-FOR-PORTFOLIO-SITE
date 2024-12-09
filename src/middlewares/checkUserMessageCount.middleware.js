@@ -3,7 +3,7 @@ import {
   COOLED_DOWN_PERIOD,
 } from '../config/constants.js';
 import generateToken from '../utility/generateToken.js';
-import formatTime from '../utility/formateTime.js';
+import generateTryAfterTime from '../utility/formateTime.js';
 
 const checkUserMessageCount = (req, res, next) => {
   // The upstream middleware ensures the token validity, so no need to re-check here.
@@ -28,10 +28,12 @@ const checkUserMessageCount = (req, res, next) => {
       const cooledDownToken = generateToken([], 0, true, COOLED_DOWN_PERIOD);
 
       // user cooled down period in minutes to format future time in 12:01PM format
-      const tryAfter = formatTime(COOLED_DOWN_PERIOD);
+      const utcTime = generateTryAfterTime(COOLED_DOWN_PERIOD);
+      console.log('try after time', utcTime);
       return res.json({
         token: cooledDownToken,
-        message: `Hi, you have reached the maximum number of allowed messages. Please try again after ${tryAfter}`,
+        message: utcTime,
+        cooledDown: true,
       });
     }
   }

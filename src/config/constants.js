@@ -1,5 +1,5 @@
 export const ALLOWED_MESSAGES_NUMBER = 1;
-export const COOLED_DOWN_PERIOD = 300; //5 minutes
+export const COOLED_DOWN_PERIOD = 5 * 60; //5 minutes
 export const TOKEN_EXPIRES_TIME = 900; //15minutes
 export const MAX_USER_WORDS_LIMIT = 200; //200 words
 export const CACHE_EXPIRES_TIME = 5 * 60 * 60 * 1000; // 5 minutes

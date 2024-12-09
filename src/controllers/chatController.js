@@ -17,6 +17,7 @@ const handleChat = async (req, res) => {
     return res.json({
       message: content,
       token: updatedToken,
+      cooledDown: false,
     });
   } catch (error) {
     console.error('Error in handleChat:', error);
