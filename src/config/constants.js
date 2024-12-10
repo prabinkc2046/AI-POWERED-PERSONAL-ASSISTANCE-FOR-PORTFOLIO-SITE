@@ -1,9 +1,9 @@
-export const ALLOWED_MESSAGES_NUMBER = 1;
+export const ALLOWED_MESSAGES_NUMBER = 5;
 export const COOLED_DOWN_PERIOD = 5 * 60; //5 minutes
-export const TOKEN_EXPIRES_TIME = 900; //15minutes
+export const TOKEN_EXPIRES_TIME = 15 * 60; //15minutes
 export const MAX_USER_WORDS_LIMIT = 200; //200 words
-export const CACHE_EXPIRES_TIME = 5 * 60 * 60 * 1000; // 5 minutes
-export const INTENT_CACHE_EXPIRE_TIME = 24 * 60 * 60 * 1000; // 24 hours
+export const CACHE_EXPIRES_TIME = 5 * 60 * 60 * 1000; // 5 minutes in millisecond
+export const INTENT_CACHE_EXPIRE_TIME = 24 * 60 * 60 * 1000; // 24 hours in millisecond
 
 export const CLEANUP_INTERVALS = {
   SHORT_DELAY: 15 * 60 * 1000, // 10 seconds
