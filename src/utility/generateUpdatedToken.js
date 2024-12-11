@@ -1,6 +1,7 @@
 import generateToken from './generateToken.js';
+import { TOKEN_EXPIRES_TIME } from '../config/constants.js';
 
-export const generateUpdatedToken = (content, userMessageCount) => {
+export const generateUpdatedToken = (content, userMessageCount, userId) => {
   const messageCount = userMessageCount + 1;
   const assistanceUser = [
     {
@@ -9,5 +10,11 @@ export const generateUpdatedToken = (content, userMessageCount) => {
     },
   ];
 
-  return generateToken(assistanceUser, messageCount);
+  return generateToken(
+    assistanceUser,
+    messageCount,
+    false,
+    TOKEN_EXPIRES_TIME,
+    userId
+  );
 };

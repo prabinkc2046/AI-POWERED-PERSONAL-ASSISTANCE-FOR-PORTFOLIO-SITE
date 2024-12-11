@@ -9,12 +9,14 @@ import handleCooledDownToken from '../middlewares/handleCooledDownToken.middelwa
 import checkUserMessageCount from '../middlewares/checkUserMessageCount.middleware.js';
 import identifyUserIntent from '../middlewares/identifyUserIntent.middleware.js';
 import injectPrompt from '../middlewares/injectPrompt.js';
+import attachUserId from '../middlewares/attachUserId.middleware.js';
 const router = express.Router();
 
 router.post(
   '/chat',
   validateRequest,
   checkValidToken,
+  attachUserId,
   checkUserMessageCount,
   handleCooledDownToken,
   checkCache,

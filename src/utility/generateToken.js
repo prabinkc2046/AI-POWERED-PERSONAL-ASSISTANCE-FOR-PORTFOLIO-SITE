@@ -13,9 +13,10 @@ const generateToken = (
   conversations,
   userMessageCount = 0,
   cooledDown = false,
-  tokenExpiryTime = TOKEN_EXPIRES_TIME
+  tokenExpiryTime = TOKEN_EXPIRES_TIME,
+  userId = null
 ) => {
-  const payload = { conversations, userMessageCount, cooledDown };
+  const payload = { conversations, userMessageCount, cooledDown, userId };
   // if tokenexpirty time has s or mins attached remove that
 
   const tokenExpiryInSeconds = tokenExpiryTime + 's';

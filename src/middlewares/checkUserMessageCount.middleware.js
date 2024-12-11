@@ -4,13 +4,14 @@ import {
 } from '../config/constants.js';
 import generateToken from '../utility/generateToken.js';
 import generateTryAfterTime from '../utility/formateTime.js';
+import { intentTracker } from '../config/IntentTracker.js';
 
-const checkUserMessageCount = (req, res, next) => {
+const checkUserMessageCount = async (req, res, next) => {
   // The upstream middleware ensures the token validity, so no need to re-check here.
 
   // Extract necessary properties from the request
-  const { cooledDown, userMessageCount } = req;
-
+  const { cooledDown, userMessageCount, userId } = req;
+  console.log('userid at check user message count', userId);
   // Validate configuration values
   const maxMessages = Number(ALLOWED_MESSAGES_NUMBER);
   if (isNaN(maxMessages)) {
@@ -27,6 +28,8 @@ const checkUserMessageCount = (req, res, next) => {
       // Generate a new token with a cooled-down state for the configured period
       const cooledDownToken = generateToken([], 0, true, COOLED_DOWN_PERIOD);
 
+      // remove user intent
+      await intentTracker.removeIntent(userId);
       // user cooled down period in minutes to format future time in 12:01PM format
       const utcTime = generateTryAfterTime(COOLED_DOWN_PERIOD);
       console.log('try after time', utcTime);

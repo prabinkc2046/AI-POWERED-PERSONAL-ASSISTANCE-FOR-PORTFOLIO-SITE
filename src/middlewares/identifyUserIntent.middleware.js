@@ -1,26 +1,44 @@
 // this middleware to identify intent based on our predefined intent
 
 import { matcher } from '../config/intentMatcher/IntentMatcher.js';
+import { intentTracker } from '../config/IntentTracker.js';
 
 const identifyUserIntent = async (req, res, next) => {
   try {
     // grab message from req body
     const { message } = req.body;
+    const { userId, isNewSession } = req;
 
-    // Start performance tracking
-    const startTime = Date.now();
-
-    const userIntent = await matcher.getBestIntent(message);
-
-    // Log the time taken
-    const elapsedTime = Date.now() - startTime;
-
-    if (!userIntent) {
-      console.warn('user intent match is not found');
-      req.userIntent = 'general';
+    let intentToAdd;
+    const currentIntent = await matcher.getBestIntent(message);
+    if (isNewSession) {
+      // for a new session, pass along whatever best intent is matched
+      req.userIntent = currentIntent;
+      intentToAdd = currentIntent;
     } else {
-      req.userIntent = userIntent;
+      // Check if the current intent is general or not
+      if (currentIntent !== 'general') {
+        // for a old session, if the current intent is not general then pass it along
+        req.userIntent = currentIntent;
+        intentToAdd = currentIntent;
+      } else {
+        // for a old session, if the current intent is general, then check the last intent
+        // we are doing this, assuming user did not say much to match with the intent matcher
+        const lastIntent = await intentTracker.getIntent(userId);
+
+        // if last intent exist then use that
+        if (lastIntent) {
+          req.userIntent = lastIntent;
+          intentToAdd = lastIntent;
+        } else {
+          req.userIntent = 'general';
+          intentToAdd = 'general';
+        }
+      }
     }
+
+    await intentTracker.addIntentToQueue(userId, intentToAdd);
+
     return next();
   } catch (error) {
     console.error('Error identifying user intent:', error.message);

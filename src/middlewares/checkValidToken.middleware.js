@@ -30,14 +30,16 @@ const checkValidToken = (req, res, next) => {
       conversations = [],
       userMessageCount = 0,
       cooledDown = false,
+      userId,
     } = decodedToken;
-
+    console.log('user id at check valid token is', userId);
     // Attach decoded data to the request for downstream middleware
     req.expire = exp * 1000; // Convert expiration to milliseconds
     req.conversations = conversations;
     req.userMessageCount = userMessageCount;
     req.cooledDown = cooledDown;
     req.isNewSession = false;
+    req.userId = userId;
 
     return next();
   } catch (error) {

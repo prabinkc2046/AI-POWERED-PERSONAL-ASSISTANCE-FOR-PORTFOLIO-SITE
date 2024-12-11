@@ -5,7 +5,7 @@ import { responseCacheManager } from '../config/cache/CacheManager.js';
 export const checkCache = async (req, res, next) => {
   // grab message
   const { message } = req.body;
-  const messageCount = req.userMessageCount || 0;
+  const { userMessageCount = 0, userId } = req;
   // generate key from the message to retrieve the content
   const messageKey = sanitizeMessage(message);
 
@@ -13,7 +13,11 @@ export const checkCache = async (req, res, next) => {
     messageKey
   );
   if (cachedResponse) {
-    const updatedToken = generateUpdatedToken(cachedResponse, messageCount);
+    const updatedToken = generateUpdatedToken(
+      cachedResponse,
+      userMessageCount,
+      userId
+    );
     return res.json({
       message: cachedResponse,
       token: updatedToken,
