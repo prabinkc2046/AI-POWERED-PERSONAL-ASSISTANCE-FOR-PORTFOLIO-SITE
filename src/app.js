@@ -16,7 +16,7 @@ app.use(express.json());
 app.use('/', ChatRoutes);
 
 const PORT = process.env.PORT || 3000;
-const HOST = process.env.NODE_ENV === 'production' ? '0.0.0.0' : '0.0.0.0';
+const HOST = process.env.NODE_ENV === 'production' ? '0.0.0.0' : '127.0.0.1';
 app.listen(PORT, HOST, () => {
   if (process.env.NODE_ENV === 'production') {
     console.log(`Server running on port: ${PORT}`);
