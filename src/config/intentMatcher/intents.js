@@ -6,7 +6,7 @@ import keywordsForEducation from '../keywords/keywordsForEducation.js';
 import keywordsForServices from '../keywords/keywordsForServices.js';
 import keywordsForGeneralIntention from '../keywords/keywordsForGeneralIntent.js';
 import keywordsForContact from '../keywords/keywordsForContact.js';
-
+import keywordsForUserWantsToSendEmail from '../keywords/keywordsForUserWantsToSendEmail.js';
 export const intents = [
   // Intent: Experience
   {
@@ -49,5 +49,11 @@ export const intents = [
   {
     keywords: keywordsForGeneralIntention,
     intent: 'general',
+  },
+
+  // Intent: user wants to send email
+  {
+    keywords: keywordsForUserWantsToSendEmail,
+    intent: 'email',
   },
 ];

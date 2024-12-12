@@ -1,27 +1,26 @@
 import axios from 'axios';
-import qs from 'qs'; // Import the qs library to encode form data
 
 const email_server = process.env.EMAIL_SERVER_ADDRESS;
 
-const sendEmail = async content => {
-  if (content) {
-    if (
-      content.user_details &&
-      content.user_details.name &&
-      content.user_details.email &&
-      content.user_details.message
-    ) {
-      // Convert the user_details object into form-encoded format
-      const formEncodedData = qs.stringify(content.user_details);
+const sendEmail = async userDetails => {
+  const emailPayload = {
+    name: userDetails.name,
+    email: userDetails.email,
+    message: userDetails.message,
+  };
 
-      const response = await axios.post(email_server, formEncodedData, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      });
+  console.log('email payload looks like this', emailPayload);
 
-      return response.status;
-    }
+  try {
+    const response = await axios.post(email_server, emailPayload, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.status;
+  } catch (error) {
+    console.error('Error sending email:', error.response || error.message);
+    throw new Error('Email sending failed'); // Re-throw the error to be handled by the calling function
   }
 };
 

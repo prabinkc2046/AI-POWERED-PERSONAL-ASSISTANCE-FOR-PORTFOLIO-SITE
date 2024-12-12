@@ -7,6 +7,7 @@ import {
   ServicesContext,
   IntroductionContext,
   GeneralIntentContext,
+  UserWantsToSendEmail,
 } from './instructions.js';
 
 export const prompts = {
@@ -18,4 +19,5 @@ export const prompts = {
   education: EducationContext,
   introduction: IntroductionContext,
   general: GeneralIntentContext,
+  email: UserWantsToSendEmail,
 };

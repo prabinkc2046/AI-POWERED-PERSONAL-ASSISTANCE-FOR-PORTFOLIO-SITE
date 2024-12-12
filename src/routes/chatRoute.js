@@ -10,6 +10,7 @@ import checkUserMessageCount from '../middlewares/checkUserMessageCount.middlewa
 import identifyUserIntent from '../middlewares/identifyUserIntent.middleware.js';
 import injectPrompt from '../middlewares/injectPrompt.js';
 import attachUserId from '../middlewares/attachUserId.middleware.js';
+import sendEmailMiddleware from '../middlewares/sendEmail.middleware.js';
 const router = express.Router();
 
 router.post(
@@ -24,6 +25,7 @@ router.post(
   injectPrompt,
   prepareConversationContext,
   handleApiRequest,
+  sendEmailMiddleware,
   handleChat
 );
 
